@@ -1,0 +1,48 @@
+def is_legal(num):
+    while num > 0:
+        if num % 10 > 1:
+            return False
+        num //= 10
+    return True
+
+def bin_sum(bin1, bin2):
+    carry = 0
+    final_sum = 0
+    exp = 0
+    
+    while bin1 or bin2:
+        a = bin1 % 10
+        b = bin2 % 10
+        if (a + b + carry) % 2 == 0:
+            sum = 0
+        else:
+            sum = 1
+        
+        if (a + b + carry) > 1:
+            carry = 1
+        else:
+            carry = 0        
+            
+        final_sum += sum*(10**exp)
+        
+        exp += 1
+        bin1 //= 10
+        bin2 //= 10
+
+    if carry == 1:
+        final_sum += 1*(10**exp)
+        
+    return final_sum
+
+def print_result(x, y, z):
+    print(x, "+", y, "=", z)
+
+def main():
+    bin1 = int(input("Enter first binary number: "))
+    bin2 = int(input("Enter second binary number: "))
+    
+    flag = is_legal(bin1) and is_legal(bin2)
+    
+    print_result(bin1, bin2, bin_sum(bin1, bin2)) if flag else print("Illegal input")
+        
+main()
